@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+
+		{% block stylesheets %}{% endblock %}
+		{% block javascripts %}
+			{% block importmap %}
+				{{ importmap('app') }}
+			{% endblock %}
+		{% endblock %}
+
+	</head>
+	<body>
+		<div class="d-flex align-items-start">
+			{{ include('/components/header/nav/sidebar.html.twig') }}
+			<div class='d-flex flex-column w-100'>
+				{{ include('/components/header/nav/navbar.html.twig') }}
+				{% block body %}{% endblock %}
+			</div>
+		</div>
+	</body>
+</html>

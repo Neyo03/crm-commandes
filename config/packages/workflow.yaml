@@ -1,0 +1,29 @@
+framework:
+    workflows:
+        # commande_creation:
+        #     type: 'state_machine'
+        #     supports:
+        #         - App\Entity\Commande
+        #     marking_store:
+        #         type: 'method'
+        #         property: 'state'
+        #     places:
+        #         - draft
+        #         - review
+        #         - rejected
+        #         - accepted
+        #         - published
+        #     transitions:
+        #         create:
+        #             from: 'draft'
+        #             to: 'review'
+        #         review:
+        #             from: 'review'
+        #             to: 'rejected'
+        #         accept:
+        #             from: 'review'
+        #             to: 'accepted'
+        #         publish:
+        #             from: 'accepted'
+        #             to: 'published'
+                
