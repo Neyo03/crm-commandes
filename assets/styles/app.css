@@ -1,10 +1,10 @@
 :root {
     --primary-bg: #0d1022;
-    --secondary-bg: #121630;
-    --tertiary-bg: #23293c;
-    --highlight-bg: #3b4051;
-    --button-bg: #7a43c0;
-    --button-hover-bg: #8c4fd9;
+    --secondary-bg: #10152c;
+    --tertiary-bg: #121b34;
+    --highlight-bg: #293048;
+    --button-bg: #0084ff;
+    --button-hover-bg: #4a91ff;
     --text-color: #f8f9fa;
     --text-muted: #c0c2d3;
     --label-color: #a0a2b3;
@@ -14,6 +14,7 @@
 body {
     background-color: var(--primary-bg);
     color: var(--text-color);
+    height: 100vh;
 }
 
 .navbar {
@@ -58,7 +59,7 @@ body {
 }
 
 .add-button {
-    color: var(--text-color);
+    color: var(--text-color) !important;
     background-color: var(--button-bg);
     transition: background-color 0.3s ease;
 }
@@ -69,12 +70,10 @@ body {
 }
 
 .button-icon {
-    margin-right: 5px;
+    margin-right: 10px;
 }
 
-.text-primary {
-    color: var(--text-color) !important;
-}
+
 
 .text-muted {
     color: var(--text-muted) !important;
@@ -162,3 +161,30 @@ label {
     padding: 5px 15px; 
     min-height: 35px;
 }
+
+.alert-dark {
+    background-color: var(--highlight-bg);
+    color: var(--text-color);
+    border: 1px solid var(--tertiary-bg);
+}
+
+.tab-content {
+    background-color: transparent;
+}
+
+.tab-pane {
+    background-color: transparent!important;
+}
+.nav-link {
+    color: var(--text-muted);
+}
+
+.nav-link:hover {
+    color: var(--text-muted);
+    background-color: var(--highlight-bg);
+}
+
+.div-border-dark {
+    border-color: var(--tertiary-bg) !important;
+}
+

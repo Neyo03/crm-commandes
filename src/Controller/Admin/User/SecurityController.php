@@ -11,7 +11,7 @@ use Symfony\Component\Security\Http\LoginLink\LoginLinkHandlerInterface;
 
 final class SecurityController extends AbstractController
 {
-    #[Route('/admin/login-link', name: 'login-link')]
+    #[Route('/login-link', name: 'login_link')]
     public function requestLoginLink(LoginLinkHandlerInterface $loginLinkHandler, UserRepository $userRepository, Request $request): Response
     {
         if ($request->isMethod('POST')) {

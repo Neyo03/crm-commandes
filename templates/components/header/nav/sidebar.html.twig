@@ -4,45 +4,89 @@
 		<span class="fs-5 ms-3 mt-3">Commande ESTI</span>
 	</a>
 	<hr>
-	<ul class="nav nav-pills flex-column mb-auto">
-		<li class="nav-item">
-			<a href="#" class="nav-link add-button" aria-current="page">
-				<svg class="bi me-2" width="16" height="16">
-					<use xlink:href="#home"></use>
-				</svg>
-				<i class="bi bi-plus-circle button-icon"></i>
-				Créer un PLC
-			</a>
-		</li>
 
-		<li>
-			<a href="#" class="nav-link text-white">
-				<svg class="bi me-2" width="16" height="16">
-					<use xlink:href="#people-circle"></use>
-				</svg>
-				<i class="bi bi-code-square button-icon"></i>
-				PLC
-			</a>
-		</li>
+	{% if app.request.attributes.get('_route') starts with 'admin_' %}
+		<div class='fs-5 p-3'>
+			<b>Administration</b>
+		</div>
+		<ul class="nav nav-pills flex-column mb-auto">
+			<li class="nav-item">
+				<a href="#" class="nav-link text-white">
+					<i class="bi bi-archive-fill button-icon"></i>
+					Commandes
+				</a>
+			</li>
 
-		<li>
-			<a href="#" class="nav-link text-white">
-				<svg class="bi me-2" width="16" height="16">
-					<use xlink:href="#people-circle"></use>
-				</svg>
-				<i class="bi bi-code-square button-icon"></i>
-				Commandes
-			</a>
-		</li>
+			<li>
+				<a href="#" class="nav-link text-white">
+					<i class="bi bi-person-fill-slash button-icon"></i>
+					Comptes bloqués
+				</a>
+			</li>
 
-		<li>
-			<a href="#" class="nav-link text-white">
-				<svg class="bi me-2" width="16" height="16">
-					<use xlink:href="#people-circle"></use>
-				</svg>
-				<i class="bi bi-code-square button-icon"></i>
-				Commandes nat...
-			</a>
-		</li>
-	</ul>
+			<li>
+				<a href="#" class="nav-link text-white">
+					<i class="bi bi-geo-alt-fill button-icon"></i>
+					Destinataires
+				</a>
+			</li>
+
+			<li>
+				<a href="#" class="nav-link text-white">
+					<i class="bi bi-bell-fill button-icon"></i>
+					Notifications
+				</a>
+			</li>
+			<li>
+				<a href="#" class="nav-link text-white">
+					<i class="bi bi-diagram-3-fill button-icon"></i>
+					Rattachements
+				</a>
+			</li>
+			<li>
+				<a href="#" class="nav-link text-white">
+					<i class="bi bi-diagram-2-fill button-icon"></i>
+					Régions
+				</a>
+			</li>
+			<li>
+				{% if condition %}{% endif %}
+				<a href="#" class="nav-link text-white">
+					<i class="bi bi-people-fill button-icon"></i>
+					Utilisateurs
+				</a>
+			</li>
+		</ul>
+	{% else %}
+		<ul class="nav nav-pills flex-column mb-auto">
+			<li class="nav-item">
+				<a href="#" class="nav-link add-button" aria-current="page">
+					<i class="bi bi-plus-circle button-icon"></i>
+					Créer un PLC
+				</a>
+			</li>
+
+			<li>
+				<a href="#" class="nav-link text-white">
+					<i class="bi bi-code-square button-icon"></i>
+					PLC
+				</a>
+			</li>
+
+			<li>
+				<a href="#" class="nav-link text-white">
+					<i class="bi bi-code-square button-icon"></i>
+					Commandes
+				</a>
+			</li>
+
+			<li>
+				<a href="#" class="nav-link text-white">
+					<i class="bi bi-code-square button-icon"></i>
+					Commandes nat...
+				</a>
+			</li>
+		</ul>
+	{% endif %}
+
 </div>
