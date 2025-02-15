@@ -18,13 +18,13 @@ final class EditUserController extends AbstractController
     #[Route('/user/{user}/edit', name: 'app_edit_user_post', methods: ['POST'])]
     public function edit(User $user, Request $request, EntityManagerInterface $entityManager): Response
     {
-
-
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
+
+
 
             $entityManager->persist($user);
             $entityManager->flush();

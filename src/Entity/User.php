@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use App\Security\Enum\PermissionEnum;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
@@ -43,6 +45,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $loginLink = null;
+
+    /**
+     * @var Collection<int, Rattachement>
+     */
+    #[ORM\ManyToMany(targetEntity: Rattachement::class, mappedBy: 'users')]
+    private Collection $rattachements;
+
+    /**
+     * @var Collection<int, Region>
+     */
+    #[ORM\ManyToMany(targetEntity: Region::class, mappedBy: 'users')]
+    private Collection $regions;
+
+    public function __construct()
+    {
+        $this->rattachements = new ArrayCollection();
+        $this->regions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -148,7 +168,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function isSuperAdmin(): bool
     {
-        return in_array('SUPER_ADMIN', $this->permissions);
+        return in_array('ROLE_SUPER_ADMIN', $this->roles);
     }
 
     public function isFirstLogin(): ?bool
@@ -177,6 +197,57 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLoginLink(?string $loginLink): static
     {
         $this->loginLink = $loginLink;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Rattachement>
+     */
+    public function getRattachements(): Collection
+    {
+        return $this->rattachements;
+    }
+
+    public function addRattachement(Rattachement $rattachement): static
+    {
+        if (!$this->rattachements->contains($rattachement)) {
+            $this->rattachements->add($rattachement);
+            $rattachement->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRattachement(Rattachement $rattachement): static
+    {
+        if ($this->rattachements->removeElement($rattachement)) {
+            $rattachement->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    public function getRegions(): ?Collection
+    {
+        return $this->regions;
+    }
+
+    public function addRegion(Region $region): static
+    {
+        if (!$this->regions->contains($region)) {
+            $this->regions->add($region);
+            $region->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRegion(Region $region): static
+    {
+        if ($this->regions->removeElement($region)) {
+            $region->removeUser($this);
+        }
 
         return $this;
     }

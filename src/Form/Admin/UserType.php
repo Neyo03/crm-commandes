@@ -2,9 +2,12 @@
 
 namespace App\Form\Admin;
 
+use App\Entity\Rattachement;
+use App\Entity\Region;
 use App\Entity\User;
 use App\Security\Enum\PermissionEnum;
 use PharIo\Manifest\Email;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\ChoiceList;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -29,6 +32,7 @@ class UserType extends AbstractType
                 'choices' => [
                     'User' => 'ROLE_USER',
                     'Admin' => 'ROLE_ADMIN',
+                    'Super Admin' => 'ROLE_SUPER_ADMIN',
                 ],
                 'multiple' => true,
                 'expanded' => true,
@@ -45,6 +49,26 @@ class UserType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
                 'label' => 'Permissions',
+            ])
+            ->add('regions', EntityType::class, [
+                'class' => Region::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+                // 'expanded' => true,
+                'label' => 'Régions',
+                'attr' => [
+                    'class' => 'form-check select-tools',
+                ],
+            ])
+            ->add('rattachements', EntityType::class, [
+                'class' => Rattachement::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+                // 'expanded' => true,
+                'label' => 'Rattachements',
+                'attr' => [
+                    'class' => 'form-check select-tools',
+                ],
             ]);
     }
 
