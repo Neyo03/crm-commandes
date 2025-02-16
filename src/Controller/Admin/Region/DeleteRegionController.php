@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controller\Admin\User;
+namespace App\Controller\Admin\Region;
 
-use App\Entity\User;
+use App\Entity\Region;
 use App\Security\Enum\PermissionEnum;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,22 +10,22 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-final class DeleteUserController extends AbstractController
+final class DeleteRegionController extends AbstractController
 {
-    #[IsGranted(PermissionEnum::USER_DELETE->value)]
-    #[Route('/user/{user}/delete', name: 'app_delete_user', methods: ['DELETE'])]
+    #[IsGranted(PermissionEnum::REGION_DELETE->value)]
+    #[Route('/region/{region}/delete', name: 'app_delete_region', methods: ['DELETE'])]
     public function delete(
-        User $user,
+        Region $region,
         EntityManagerInterface $entityManager,
     ): Response {
 
         try {
-            $entityManager->remove($user);
+            $entityManager->remove($region);
             $entityManager->flush();
         } catch (\Throwable $th) {
             $this->addFlash('error', 'Une erreur est survenue.');
         }
 
-        return $this->redirectToRoute('admin_app_collection_users');
+        return $this->redirectToRoute('admin_app_collection_regions');
     }
 }

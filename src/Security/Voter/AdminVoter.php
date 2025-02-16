@@ -4,6 +4,7 @@ namespace App\Security\Voter;
 
 use App\Entity\User;
 use App\Security\Enum\PermissionEnum;
+use App\Security\Enum\RoleEnum;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
@@ -19,7 +20,7 @@ class AdminVoter extends Voter
     {
         $user = $token->getUser();
 
-        if (!$user instanceof User || !in_array('ROLE_ADMIN', $user->getRoles())) {
+        if (!$user instanceof User || !in_array(RoleEnum::ROLE_ADMIN->value, $user->getRoles())) {
             return false;
         }
 

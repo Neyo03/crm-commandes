@@ -21,12 +21,18 @@ final class EditUserController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user = $form->getData();
+        try {
+            if ($form->isSubmitted() && $form->isValid()) {
+                $user = $form->getData();
 
-            $entityManager->persist($user);
-            $entityManager->flush();
+                $entityManager->persist($user);
+                $entityManager->flush();
+            }
+            $this->addFlash('success', 'Utilisateur mis à jour !');
+        } catch (\Throwable $th) {
+            $this->addFlash('error', 'Une erreur est survenue.');
         }
+
 
         return $this->redirectToRoute('admin_app_form_edit_user', ['user' => $user->getId()]);
     }

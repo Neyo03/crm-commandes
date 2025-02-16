@@ -7,6 +7,7 @@ use App\Entity\Region;
 use App\Entity\User;
 use App\Security\Enum\PermissionCommandeEnum;
 use App\Security\Enum\PermissionEnum;
+use App\Security\Enum\RoleEnum;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
@@ -39,11 +40,7 @@ class UserType extends AbstractType
                 ],
             ])
             ->add('roles', ChoiceType::class, [
-                'choices' => [
-                    'User' => 'ROLE_USER',
-                    'Admin' => 'ROLE_ADMIN',
-                    'Super Admin' => 'ROLE_SUPER_ADMIN',
-                ],
+                'choices' => RoleEnum::getChoices(),
                 'multiple' => true,
                 'expanded' => true,
                 'label' => 'Roles',
@@ -57,7 +54,6 @@ class UserType extends AbstractType
                     'class' => 'form-check-input',
                 ],
                 'choices' => ['Administration' => PermissionEnum::getChoices(), 'Commande' => PermissionCommandeEnum::getChoices()],
-                // 'choices' => PermissionEnum::getChoices(),
                 'multiple' => true,
                 'expanded' => true,
                 'label' => 'Permissions Administration',

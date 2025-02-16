@@ -46,12 +46,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return $this->paginator->paginate(
             $query,
             $request->query->getInt('page', 1),
-            1
+            10
         );
     }
-
-
-
 
     //    /**
     //     * @return User[] Returns an array of User objects

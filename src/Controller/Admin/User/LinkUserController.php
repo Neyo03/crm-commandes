@@ -21,15 +21,20 @@ final class LinkUserController extends AbstractController
         LoginLinkService $loginLinkService
     ): Response {
 
-        $loginLink = $loginLinkService->generateLoginLink($user);
+        try {
+            $loginLink = $loginLinkService->generateLoginLink($user);
 
-        $user
-            ->setLoginLink($loginLink)
-            ->setIsFirstLogin(true)
-        ;
+            $user
+                ->setLoginLink($loginLink)
+                ->setIsFirstLogin(true)
+            ;
 
-        $entityManager->persist($user);
-        $entityManager->flush();
+            $entityManager->persist($user);
+            $entityManager->flush();
+        } catch (\Throwable $th) {
+            $this->addFlash('error', 'Une erreur est survenue.');
+        }
+
 
         return $this->json(['loginLink' => $loginLink], 200);;
     }

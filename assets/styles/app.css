@@ -239,3 +239,47 @@ label {
 .selectize-input>input {
     border-color: var(--primary-bg) !important;
 }
+
+.scroll-container {
+    max-height: 50vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-left: 10px;
+}
+
+.scroll-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.scroll-container::-webkit-scrollbar-track {
+    background: var(--tertiary-bg) !important;
+    border-radius: 15px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+    background: var(--highlight-bg) !important;
+    border-radius: 30px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-bg) !important;
+}
+
+.flash-messages {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1050;
+    width: 12vw;
+}
+
+.flash-messages .alert {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.flash-messages .fade-out {
+    opacity: 0;
+    transform: translateY(-20px);
+}

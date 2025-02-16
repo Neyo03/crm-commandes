@@ -31,23 +31,30 @@ final class NewUserController extends AbstractController
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        try {
+            if ($form->isSubmitted() && $form->isValid()) {
 
-            $user = $form->getData();
-            $hashedPassword = $passwordHasher->hashPassword(
-                $user,
-                uniqid()
-            );
+                $user = $form->getData();
+                $hashedPassword = $passwordHasher->hashPassword(
+                    $user,
+                    uniqid()
+                );
 
-            $user->setPassword($hashedPassword);
+                $user->setPassword($hashedPassword);
 
-            $loginLink = $loginLinkService->generateLoginLink($user);
+                $loginLink = $loginLinkService->generateLoginLink($user);
 
-            $user->setLoginLink($loginLink);
+                $user->setLoginLink($loginLink);
 
-            $entityManager->persist($user);
-            $entityManager->flush();
+                $entityManager->persist($user);
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Utilisateur créé avec succès !');
+            }
+        } catch (\Throwable $th) {
+            $this->addFlash('error', 'Une erreur est survenue.');
         }
+
 
         return $this->redirectToRoute('admin_app_form_edit_user', ['user' => $user->getId()]);
     }

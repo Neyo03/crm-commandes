@@ -1,0 +1,26 @@
+{% extends '/admin/region/base.region.html.twig' %}
+
+{% block region_content %}
+	<nav>
+		<div class="nav nav-pills mb-3 ps-3" id="nav-tab" role="tablist">
+			<button class="nav-link active" id="nav-general-tab" data-bs-toggle="pill" data-bs-target="#nav-general" type="button" role="tab" aria-controls="nav-general" aria-selected="true">Générale</button>
+		</div>
+	</nav>
+	<div class='w-100 position-relative border-top div-border-dark'>
+		{{ form_start(form) }}
+		<div style='min-height:74vh;' class='div-border-dark p-3 w-50 border-end'>
+			<div class="tab-content scroll-container" id="nav-tabContent">
+				<div class="tab-pane fade show active" id="nav-general" role="tabpanel" aria-labelledby="nav-general-tab">
+					<div class="row">
+						<div class="col">
+							{{ form_row(form.name) }}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class='w-100 d-flex justify-content-end mt-3'>
+				<button class='btn add-button' type="submit">Sauvegarder</button>
+			</div>
+			{{ form_end(form) }}
+		</div>
+	{% endblock %}

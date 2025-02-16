@@ -26,7 +26,7 @@ export default class extends Controller {
             if (data.loginLink) {
                 this.inputTarget.value = data.loginLink;
                 this.containerTarget.classList.remove("d-none");
-                alert("Lien de connexion regénéré !");
+                alert("Lien de connexion généré !");
             } else {
                 alert("Erreur lors de la génération du lien !");
             }

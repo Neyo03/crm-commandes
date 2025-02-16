@@ -3,7 +3,7 @@
 {% block user_content %}
 	<nav>
 		<div class="nav nav-pills mb-3 ps-3" id="nav-tab" role="tablist">
-			<button class="nav-link active" id="nav-general-tab" data-bs-toggle="pill" data-bs-target="#nav-general" type="button" role="tab" aria-controls="nav-general" aria-selected="true">Générales</button>
+			<button class="nav-link active" id="nav-general-tab" data-bs-toggle="pill" data-bs-target="#nav-general" type="button" role="tab" aria-controls="nav-general" aria-selected="true">Générale</button>
 			<button class="nav-link" id="nav-region-rattachement-tab" data-bs-toggle="pill" data-bs-target="#nav-region-rattachement" type="button" role="tab" aria-controls="nav-region-rattachement" aria-selected="false">Région - Rattachement</button>
 			<button class="nav-link" id="nav-role-rights-tab" data-bs-toggle="pill" data-bs-target="#nav-role-rights" type="button" role="tab" aria-controls="nav-role-rights" aria-selected="false">Rôles - Droits</button>
 		</div>
@@ -16,14 +16,9 @@
 		{% endif %}
 		<div data-controller="login-link" data-login-link-url-value="{{ link_url }}" data-login-link-csrf-value="{{ csrf_token('admin_app_link_user') }}" style='min-height:74vh;' class='div-border-dark p-3 w-50 border-end'>
 			<div class='d-flex justify-content-end align-items-start mb-2'>
-
 				<a href='#' data-action="login-link#confirm" class='rounded-pill border border-muted text-muted d-inline-block px-3 py-1 link-underline link-underline-opacity-0'>
 					<i class="bi bi-arrow-repeat"></i>
-					Regénéré lien
-				</a>
-				<a href='{{path('admin_app_form_new_user')}}' class='ms-2 rounded-pill border border-danger text-danger d-inline-block px-3 py-1 link-underline link-underline-opacity-0'>
-					<i class="bi bi-person-dash"></i>
-					Supprimer -> à modifier
+					Lien temporaire
 				</a>
 			</div>
 
@@ -42,7 +37,7 @@
 				<hr>
 			</div>
 
-			<div class="tab-content" id="nav-tabContent">
+			<div class="tab-content scroll-container" id="nav-tabContent">
 				<div class="tab-pane fade show active" id="nav-general" role="tabpanel" aria-labelledby="nav-general-tab">
 					<div class="row">
 						<div class="col">
@@ -64,7 +59,16 @@
 				<div class="tab-pane fade" id="nav-role-rights" role="tabpanel" aria-labelledby="nav-role-rights-tab">
 					<div class="row">
 						<div class="col">
-							{{ form_row(form.roles) }}
+							{{ form_label(form.roles, null) }}
+							{% for name, choices in form.roles.vars.choices %}
+
+								<div class='d-flex justify-content-start mb-1 ms-5'>
+									{{ form_widget(form.roles[name]) }}
+									<div style='width:100px' class='ms-1'>
+										{{ form_label(form.roles[name]) }}
+									</div>
+								</div>
+							{% endfor %}
 						</div>
 						<div class="col">
 							<label for="permissions">Permissions</label>

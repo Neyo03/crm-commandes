@@ -1,0 +1,43 @@
+{% extends '/admin/region/base.region.html.twig' %}
+
+{% block region_content %}
+	{{ knp_pagination_rel_links(pagination) }}
+
+	<div class='p-3 pe-5 w-100 position-relative border-top div-border-dark'>
+		<table class='table table-striped table-dark rounded table-hover'>
+			<tr>
+				{# sorting of properties based on query components #}
+				<th>{{ knp_pagination_sortable(pagination, '#', 'u.id') }}</th>
+				<th {% if pagination.isSorted('u.name') %} class="sorted" {% endif %}>
+					{{ knp_pagination_sortable(pagination, 'Nom', 'u.name') }}
+				</th>
+				<th>
+					Actions
+				</th>
+			</tr>
+
+			{# table body #}
+			{% for region in pagination %}
+				<tr {% if loop.index is odd %} class="color" {% endif %}>
+					<td>{{ region.id }}</td>
+					<td>{{ region.name }}</td>
+					<td>
+						{% set menu_region_vars = 
+								{ 
+									'hrefEdit': path('admin_app_form_edit_region', {'region' : region.id}), 
+									'hrefDelete': path('admin_app_delete_region', {'region' : region.id}), 
+									'entityId': region.id, 
+									'entityName': region_entity_name 
+								} 
+							%}
+						{% include '/components/admin/menu/admin_dropdown_menu.html.twig' with menu_region_vars %}
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+
+		<div class="navigation d-flex justify-content-end">
+			{{ knp_pagination_render(pagination) }}
+		</div>
+	</div>
+{% endblock %}

@@ -22,7 +22,7 @@ export default class extends Controller {
         .then(response => {
             if (response.ok) {
                 alert("Utilisateur supprimé !");
-                location.reload(); // Rafraîchir la page après suppression
+                location.reload();
             } else {
                 alert("Erreur lors de la suppression !");
             }

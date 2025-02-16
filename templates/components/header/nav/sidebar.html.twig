@@ -30,7 +30,12 @@
 					Destinataires
 				</a>
 			</li>
-
+			<li>
+				<a href="#" class="nav-link text-white">
+					<i class="bi bi-chat-left-dots-fill button-icon"></i>
+					Messages
+				</a>
+			</li>
 			<li>
 				<a href="#" class="nav-link text-white">
 					<i class="bi bi-bell-fill button-icon"></i>
@@ -44,13 +49,13 @@
 				</a>
 			</li>
 			<li>
-				<a href="#" class="nav-link text-white">
+				<a href="{{path('admin_app_collection_regions')}}" class="nav-link text-white {% if app.request.attributes.get('_route') == 'admin_app_collection_regions' %}active{% endif %}">
 					<i class="bi bi-diagram-2-fill button-icon"></i>
 					Régions
 				</a>
 			</li>
 			<li>
-				<a href="#" class="nav-link text-white">
+				<a href="{{path('admin_app_collection_users')}}" class="nav-link text-white {% if app.request.attributes.get('_route') == 'admin_app_collection_users' %}active{% endif %}">
 					<i class="bi bi-people-fill button-icon"></i>
 					Utilisateurs
 				</a>

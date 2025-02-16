@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use App\Security\Enum\PermissionEnum;
+use App\Security\Enum\RoleEnum;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -168,7 +169,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function isSuperAdmin(): bool
     {
-        return in_array('ROLE_SUPER_ADMIN', $this->roles);
+        return in_array(RoleEnum::ROLE_SUPER_ADMIN->value, $this->roles);
     }
 
     public function isFirstLogin(): ?bool
