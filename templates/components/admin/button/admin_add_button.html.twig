@@ -1,0 +1,10 @@
+{% set permission = entity ~ '_CREATE' %}
+
+{% if has_permission(permission_enum(permission)) %}
+	<div>
+		<a href='{{ href }}' class='me-2 rounded-pill border border-primary text-primary d-inline-block px-3 py-1 link-underline link-underline-opacity-0'>
+			{{ icon|raw }}
+			{{ text }}
+		</a>
+	</div>
+{% endif %}

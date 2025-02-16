@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin\User;
 
+use App\Repository\UserRepository;
 use App\Security\Enum\PermissionEnum;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,11 +14,13 @@ final class CollectionUsersController extends AbstractController
 {
     #[IsGranted(PermissionEnum::USER_COLLECTION->value)]
     #[Route('/users', name: 'app_collection_users')]
-    public function collection(Request $request): Response
+    public function collection(Request $request, UserRepository $userRepository): Response
     {
 
+        $pagination = $userRepository->userPagination($request);
+
         return $this->render('admin/user/collection.html.twig', [
-            'controller_name' => 'CollectionUsersController',
+            'pagination' => $pagination
         ]);
     }
 }

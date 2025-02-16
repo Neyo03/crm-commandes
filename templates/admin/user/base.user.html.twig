@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+	{% set user_entity_name = 'USER' %}
+	{% set add_user_vars = 
+		{ 
+			'entity': user_entity_name, 
+			'href': path('admin_app_form_new_user') , 
+			'icon': '<i class="bi bi-person-add"></i>', 
+			'text': 'Créer un utilisateur' 
+		} 
+	%}
+	<div class='p-3 pe-5 d-flex justify-content-between align-items-start'>
+		<a href='{{path('admin_app_collection_users')}}' class='link-secondary link-underline-opacity-0'>
+			<i class="bi bi-arrow-left me-1"></i>
+			Retourner à la liste
+		</a>
+		{% include '/components/admin/button/admin_add_button.html.twig' with add_user_vars %}
+	</div>
+	<h4 class='ps-3 mb-3'>Utilisateur</h4>
+	{% block user_content %}{% endblock %}
+
+{% endblock %}

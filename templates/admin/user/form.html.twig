@@ -1,55 +1,47 @@
-{% extends 'base.html.twig' %}
+{% extends '/admin/user/base.user.html.twig' %}
 
-{% block body %}
-
-	<div class='p-3 d-flex justify-content-between align-items-start'>
-		<a href='{{path('admin_app_collection_users')}}' class='link-secondary link-underline-opacity-0'>
-			<i class="bi bi-arrow-left me-1"></i>
-			Retourner à la liste
-		</a>
-		<div>
-			<a href='{{path('admin_app_form_new_user')}}' class='me-2 rounded-pill border border-primary text-primary d-inline-block px-3 py-1 link-underline link-underline-opacity-0'>
-				<i class="bi bi-person-add"></i>
-				Créer un utilisateur
-			</a>
-		</div>
-	</div>
-	<h4 class='ps-3 mb-3'>Utilisateur</h4>
-	<nav class='border-bottom div-border-dark'>
+{% block user_content %}
+	<nav>
 		<div class="nav nav-pills mb-3 ps-3" id="nav-tab" role="tablist">
 			<button class="nav-link active" id="nav-general-tab" data-bs-toggle="pill" data-bs-target="#nav-general" type="button" role="tab" aria-controls="nav-general" aria-selected="true">Générales</button>
 			<button class="nav-link" id="nav-region-rattachement-tab" data-bs-toggle="pill" data-bs-target="#nav-region-rattachement" type="button" role="tab" aria-controls="nav-region-rattachement" aria-selected="false">Région - Rattachement</button>
 			<button class="nav-link" id="nav-role-rights-tab" data-bs-toggle="pill" data-bs-target="#nav-role-rights" type="button" role="tab" aria-controls="nav-role-rights" aria-selected="false">Rôles - Droits</button>
 		</div>
 	</nav>
-	<div class='w-100 position-relative'>
+	<div class='w-100 position-relative border-top div-border-dark'>
 		{{ form_start(form) }}
-		<div style='min-height:74vh;' class='div-border-dark p-3 w-50 border-end'>
+		{% set link_url = null %}
+		{% if userId %}
+			{% set link_url = path('admin_app_link_user', { 'user': userId }) %}
+		{% endif %}
+		<div data-controller="login-link" data-login-link-url-value="{{ link_url }}" data-login-link-csrf-value="{{ csrf_token('admin_app_link_user') }}" style='min-height:74vh;' class='div-border-dark p-3 w-50 border-end'>
 			<div class='d-flex justify-content-end align-items-start mb-2'>
 
-				<a href='{{path('admin_app_form_new_user')}}' class='rounded-pill border border-muted text-muted d-inline-block px-3 py-1 link-underline link-underline-opacity-0'>
+				<a href='#' data-action="login-link#confirm" class='rounded-pill border border-muted text-muted d-inline-block px-3 py-1 link-underline link-underline-opacity-0'>
 					<i class="bi bi-arrow-repeat"></i>
 					Regénéré lien
 				</a>
 				<a href='{{path('admin_app_form_new_user')}}' class='ms-2 rounded-pill border border-danger text-danger d-inline-block px-3 py-1 link-underline link-underline-opacity-0'>
 					<i class="bi bi-person-dash"></i>
-					Supprimer
+					Supprimer -> à modifier
 				</a>
 			</div>
 
-			{% if loginLink %}
+
+			<div data-login-link-target="container" class='{% if not loginLink %}d-none{% endif %}'>
 				<label>
 					Lien de connexion temporaire
 				</label>
-				<div class="input-group mt-2">
-					<input type="text" class="form-control" value="{{ loginLink }}" data-clipboard-target="source" readonly>
-					<button class="btn btn-success input-group-append" data-action="clipboard#copy" data-target="clipboard.source">
+				<div class="input-group mt-2" data-controller='clipboard'>
+					<input type="text" class="form-control" data-login-link-target="input" value="{{ loginLink }}" data-clipboard-target="source" readonly>
+					<button type='button' class="btn btn-success input-group-append" data-action="clipboard#copy" data-target="clipboard.source">
 						<i class="bi bi-copy"></i>
 					</button>
 				</div>
 
 				<hr>
-			{% endif %}
+			</div>
+
 			<div class="tab-content" id="nav-tabContent">
 				<div class="tab-pane fade show active" id="nav-general" role="tabpanel" aria-labelledby="nav-general-tab">
 					<div class="row">
@@ -75,33 +67,46 @@
 							{{ form_row(form.roles) }}
 						</div>
 						<div class="col">
-							<label for="rattachements">Permissions</label>
+							<label for="permissions">Permissions</label>
 							<div>
-								{% for name, choices in form.permissions.vars.choices %}
-									{% if choices is iterable  %}
+								{% for categorieName, categoriesChoices in form.permissions.vars.choices %}
+									<label class="category_label mt-3 mb-3">
+										<strong>
+											{{ categorieName }}
+										</strong>
+									</label>
+									<hr>
+									<br/>
+									{% for name, choices in categoriesChoices.choices %}
 
-										<label class="choice_category">
-											<strong>
-												{{ name }}
-											</strong>
-										</label>
-										<div class='d-flex flex-column'>
-											{% for key,choice in choices %}
-												<div class='d-flex justify-content-end w-75'>
-													{{ form_widget(form.permissions[key]) }}
-													<div style='width:50px' class='ms-1'>
-														{{ form_label(form.permissions[key]) }}
+										{% if choices is iterable  %}
+
+											<small class="choice_label">
+												<strong>
+													{{ name }}
+												</strong>
+											</small>
+											<div class='d-flex flex-column'>
+												{% for key,choice in choices %}
+													<div class='d-flex justify-content-end w-75'>
+														{{ form_widget(form.permissions[key]) }}
+														<div style='width:50px' class='ms-1'>
+															{{ form_label(form.permissions[key]) }}
+														</div>
 													</div>
-												</div>
-											{% endfor %}
-										</div>
-										<hr>
-									{% else %}
+												{% endfor %}
+											</div>
 
-										{{-form_widget(form.permissions[name])}}
-										{{- form_label(form.permissions[name], null)}}
+										{% else %}
 
-									{% endif %}
+											{{ form_widget(form.permissions[name]) }}
+											{{ form_label(form.permissions[name], null) }}
+
+										{% endif %}
+										{% if not loop.last %}
+											<hr>
+										{% endif %}
+									{% endfor %}
 								{% endfor %}
 							</div>
 						</div>

@@ -188,3 +188,54 @@ label {
     border-color: var(--tertiary-bg) !important;
 }
 
+.page-link {
+    background-color: var(--tertiary-bg) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-color) !important;
+}
+
+.disabled {
+    background-color: var(--highlight-bg) !important;
+}
+
+.table-dark {
+    
+    --bs-table-color: var(--text-color) !important;
+    --bs-table-bg: var(--tertiary-bg) !important;
+    --bs-table-border-color: var(--primary-bg) !important;
+    --bs-table-striped-bg: var(--secondary-bg) !important;
+    --bs-table-hover-bg: var(--highlight-bg) !important;
+    /* --bs-table-hover-color: #fff; */
+}
+
+.dropdown-menu {
+    background-color: var(--tertiary-bg) !important;
+    border-color: var(--primary-bg) !important;
+    color: var(--text-color) !important;
+}
+
+.selectize-input {
+    background: var(--tertiary-bg) !important;
+    color: var(--text-color) !important;
+    border-color: var(--primary-bg) !important;
+}
+
+.selectize-dropdown {
+    border-color: var(--primary-bg) !important;
+}
+
+.selectize-dropdown .active:not(.selected) {
+    background: var(--tertiary-bg) !important;
+    color: var(--text-color) !important;
+    border-color: var(--primary-bg) !important;
+}
+
+.selectize-control.multi .selectize-input [data-value] {
+    background-color: var(--button-bg) !important;
+    background-image: linear-gradient(to bottom, var(--button-bg), var(--button-hover-bg)) !important;
+    background-repeat: repeat-x !important;
+}
+
+.selectize-input>input {
+    border-color: var(--primary-bg) !important;
+}

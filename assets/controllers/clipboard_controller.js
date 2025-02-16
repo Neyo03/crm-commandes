@@ -11,10 +11,9 @@ export default class extends Controller {
         const textToCopy = this.sourceTarget.value || this.sourceTarget.textContent;
 
         navigator.clipboard.writeText(textToCopy).then(() => {
-            console.log('Text copied to clipboard:', textToCopy);
             this.dispatchEvent('copy:success', { detail: { text: textToCopy } });
+            alert("Lien copiée !");
         }).catch((err) => {
-            console.error('Failed to copy text:', err);
             this.dispatchEvent('copy:error', { detail: { error: err } });
         });
     }

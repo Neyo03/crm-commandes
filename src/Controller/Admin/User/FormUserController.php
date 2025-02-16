@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\Admin\UserType;
 use App\Security\Enum\PermissionEnum;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -29,6 +30,7 @@ final class FormUserController extends AbstractController
         return $this->render('admin/user/form.html.twig', [
             'form' => $form->createView(),
             'loginLink' => $user ? $user->getLoginLink() : null,
+            'userId' => $user ? $user->getId() : null
         ]);
     }
 }
