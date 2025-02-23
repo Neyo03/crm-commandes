@@ -20,12 +20,16 @@ class AdminVoter extends Voter
     {
         $user = $token->getUser();
 
-        if (!$user instanceof User || !in_array(RoleEnum::ROLE_ADMIN->value, $user->getRoles())) {
+        if (!$user instanceof User) {
             return false;
         }
 
         if ($user->isSuperAdmin()) {
             return true;
+        }
+
+        if (!in_array(RoleEnum::ROLE_ADMIN->value, $user->getRoles())) {
+            return false;
         }
 
         $permissions = $user->getPermissions();
