@@ -19,7 +19,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class UserType extends AbstractType
 {
 
-    public function __construct(private Security $security) {}
+    public function __construct(private readonly Security $security) {}
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -27,8 +27,11 @@ class UserType extends AbstractType
         /** @var User|null $connectedUser */
         $connectedUser = $this->security->getUser();
 
-        $isDisabled = !($connectedUser && method_exists($connectedUser, 'hasPermission') && $connectedUser->hasPermission(PermissionEnum::USER_EDIT));
-        $isDisabled = !$connectedUser->isSuperAdmin();
+        if (!$connectedUser instanceof User) {
+            return;
+        }
+
+        $isDisabled = !$connectedUser->hasPermission(PermissionEnum::USER_EDIT) && !$connectedUser->isSuperAdmin() ;
 
         $builder
             ->add('email', EmailType::class, [

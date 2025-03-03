@@ -1,6 +1,6 @@
-{% extends '/admin/user/base.user.html.twig' %}
+{% extends 'admin/entity_layout.html.twig' %}
 
-{% block user_content %}
+{% block content %}
 	{{ knp_pagination_rel_links(pagination) }}
 
 	<div class='p-3 pe-5 w-100 position-relative border-top div-border-dark'>
@@ -22,15 +22,15 @@
 					<td>{{ user.id }}</td>
 					<td>{{ user.email }}</td>
 					<td>
-						{% set menu_user_vars = 
+						{% set menu_vars =
 								{ 
 									'hrefEdit': path('admin_app_form_edit_user', {'user' : user.id}), 
 									'hrefDelete': path('admin_app_delete_user', {'user' : user.id}), 
 									'entityId': user.id, 
-									'entityName': user_entity_name 
+									'entityName': entity_name
 								} 
 							%}
-						{% include '/components/admin/menu/admin_dropdown_menu.html.twig' with menu_user_vars %}
+						{% include '/components/admin/menu/admin_dropdown_menu.html.twig' with menu_vars %}
 					</td>
 				</tr>
 			{% endfor %}

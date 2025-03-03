@@ -3,56 +3,21 @@
 namespace App\Repository;
 
 use App\Entity\Region;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Repository\Abstract\AbstractRepository;
+use App\Repository\Interface\PaginationRepositoryInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * @extends ServiceEntityRepository<Region>
- */
-class RegionRepository extends ServiceEntityRepository
+class RegionRepository extends AbstractRepository implements PaginationRepositoryInterface
 {
-    public function __construct(ManagerRegistry $registry, private PaginatorInterface $paginator)
+    public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator)
     {
-        parent::__construct($registry, Region::class);
-    }
-
-    public function regionPagination(Request $request): PaginationInterface
-    {
-        $dql   = "SELECT r FROM App\Entity\Region r";
-        $query = $this->getEntityManager()->createQuery($dql);
-
-        return $this->paginator->paginate(
-            $query,
-            $request->query->getInt('page', 1),
-            10
+        parent::__construct(
+            $registry,
+            Region::class,
+            $paginator,
         );
     }
-
-    //    /**
-    //     * @return Region[] Returns an array of Region objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('r.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Region
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
 }

@@ -2,17 +2,18 @@
 
 namespace App\Form\Admin;
 
+use App\Entity\Rattachement;
 use App\Entity\Region;
 use App\Entity\User;
 use App\Security\Enum\PermissionEnum;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class RegionType extends AbstractType
+class RattachementType extends AbstractType
 {
 
     public function __construct(private readonly Security $security) {}
@@ -23,7 +24,7 @@ class RegionType extends AbstractType
         /** @var User|null $connectedUser */
         $connectedUser = $this->security->getUser();
 
-        $isDisabled = !$connectedUser->hasPermission(PermissionEnum::REGION_EDIT) && !$connectedUser->isSuperAdmin() ;
+        $isDisabled = !$connectedUser->hasPermission(PermissionEnum::RATTACHEMENT_EDIT) && !$connectedUser->isSuperAdmin() ;
 
         $builder
             ->add('name', TextType::class, [
@@ -34,15 +35,14 @@ class RegionType extends AbstractType
                     'disabled' => $isDisabled,
                 ],
             ])
-            ->add('rattachements', CollectionType::class, [
-                'entry_type' => RattachementType::class,
-                'label' => 'Rattachements',
-                'allow_add' => true,
-                'prototype' => true,
+            ->add('region', EntityType::class, [
+                'class' => Region::class,
+                'label' => 'Région du rattachement',
                 'attr' => [
+                    'placeholder' => 'Séléctionner une région',
+                    'class' => 'form-control',
                     'disabled' => $isDisabled,
                 ],
-                'by_reference' => false,
             ])
         ;
     }
@@ -50,7 +50,7 @@ class RegionType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Region::class
+            'data_class' => Rattachement::class
         ]);
     }
 }

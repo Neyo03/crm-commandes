@@ -1,11 +1,10 @@
 {% extends 'base.html.twig' %}
 
-
 {% block body %}
-	{% set region_entity_name = 'REGION' %}
-	{% set add_region_vars = 
+	{% set entity_name = 'REGION' %}
+	{% set add_button_vars =
 		{ 
-			'entity': region_entity_name, 
+			'entity': entity_name,
 			'href': path('admin_app_form_new_region') , 
 			'icon': '<i class="bi bi-diagram-2-fill button-icon"></i>', 
 			'text': 'Créer une région' 
@@ -21,8 +20,8 @@
 			Retourner à la liste
 		</a>
 
-		{% include '/components/admin/button/admin_add_button.html.twig' with add_region_vars %}
+		{% include '/components/admin/button/admin_add_button.html.twig' with add_button_vars %}
 	</div>
 	<h4 class='ps-3 mb-3'>Région</h4>
-	{% block region_content %}{% endblock %}
+	{% block content %}{% endblock %}
 {% endblock %}

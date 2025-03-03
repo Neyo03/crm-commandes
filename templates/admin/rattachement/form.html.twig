@@ -1,4 +1,4 @@
-{% extends '/admin/region/base.region.html.twig' %}
+{% extends '/admin/rattachement/base.html.twig' %}
 
 {% block content %}
 	<nav>
@@ -16,15 +16,6 @@
 							{{ form_row(form.name) }}
 						</div>
 					</div>
-					{{ form_row(form.rattachements) }}
-					{% for rattachement in form.rattachements %}
-						<div class="rattachement-item">
-							{{ form_row(rattachement) }}
-						</div>
-					{% endfor %}
-
-					<div style="display:none;">
-					</div>
 				</div>
 			</div>
 			<div class='w-100 d-flex justify-content-end mt-3'>
@@ -32,5 +23,5 @@
 			</div>
 			{{ form_end(form) }}
 		</div>
-	</div>>
-{% endblock %}
+	</div>
+	{% endblock %}

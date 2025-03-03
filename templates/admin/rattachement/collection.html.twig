@@ -1,4 +1,4 @@
-{% extends '/admin/region/base.html.twig' %}
+{% extends '/admin/entity_layout.html.twig' %}
 
 {% block content %}
 	{{ knp_pagination_rel_links(pagination) }}
@@ -6,7 +6,6 @@
 	<div class='p-3 pe-5 w-100 position-relative border-top div-border-dark'>
 		<table class='table table-striped table-dark rounded table-hover'>
 			<tr>
-				{# sorting of properties based on query components #}
 				<th>{{ knp_pagination_sortable(pagination, '#', 'r.id') }}</th>
 				<th {% if pagination.isSorted('r.name') %} class="sorted" {% endif %}>
 					{{ knp_pagination_sortable(pagination, 'Nom', 'r.name') }}
@@ -16,19 +15,18 @@
 				</th>
 			</tr>
 
-			{# table body #}
-			{% for region in pagination %}
+			{% for rattachement in pagination %}
 				<tr {% if loop.index is odd %} class="color" {% endif %}>
-					<td>{{ region.id }}</td>
-					<td>{{ region.name }}</td>
+					<td>{{ rattachement.id }}</td>
+					<td>{{ rattachement.name }}</td>
 					<td>
 						{% set menu_vars =
-								{
-									'hrefEdit': path('admin_app_form_edit_region', {'region' : region.id}),
-									'hrefDelete': path('admin_app_delete_region', {'region' : region.id}),
-									'entityId': region.id,
+								{ 
+									'hrefEdit': path('admin_app_form_edit_rattachement', {'rattachement' : rattachement.id}),
+									'hrefDelete': path('admin_app_delete_rattachement', {'rattachement' : rattachement.id}),
+									'entityId': rattachement.id,
 									'entityName': entity_name
-								}
+								} 
 							%}
 						{% include '/components/admin/menu/admin_dropdown_menu.html.twig' with menu_vars %}
 					</td>

@@ -1,6 +1,6 @@
-{% extends '/admin/user/base.user.html.twig' %}
+{% extends '/admin/user/base.html.twig' %}
 
-{% block user_content %}
+{% block content %}
 	<nav>
 		<div class="nav nav-pills mb-3 ps-3" id="nav-tab" role="tablist">
 			<button class="nav-link active" id="nav-general-tab" data-bs-toggle="pill" data-bs-target="#nav-general" type="button" role="tab" aria-controls="nav-general" aria-selected="true">Générale</button>
@@ -28,7 +28,9 @@
 					Lien de connexion temporaire
 				</label>
 				<div class="input-group mt-2" data-controller='clipboard'>
-					<input type="text" class="form-control" data-login-link-target="input" value="{{ loginLink }}" data-clipboard-target="source" readonly>
+					<label>
+						<input type="text" class="form-control" data-login-link-target="input" value="{{ loginLink }}" data-clipboard-target="source" readonly>
+					</label>
 					<button type='button' class="btn btn-success input-group-append" data-action="clipboard#copy" data-target="clipboard.source">
 						<i class="bi bi-copy"></i>
 					</button>
@@ -125,4 +127,5 @@
 			</div>
 			{{ form_end(form) }}
 		</div>
+	</div>
 	{% endblock %}

@@ -3,41 +3,21 @@
 namespace App\Repository;
 
 use App\Entity\Rattachement;
+use App\Repository\Abstract\AbstractRepository;
+use App\Repository\Interface\PaginationRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 
-/**
- * @extends ServiceEntityRepository<Rattachement>
- */
-class RattachementRepository extends ServiceEntityRepository
+class RattachementRepository extends AbstractRepository implements PaginationRepositoryInterface
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator)
     {
-        parent::__construct($registry, Rattachement::class);
+        parent::__construct(
+            $registry,
+            Rattachement::class,
+            $paginator);
     }
-
-    //    /**
-    //     * @return Rattachement[] Returns an array of Rattachement objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('r.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Rattachement
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
 }

@@ -2,10 +2,10 @@
 
 
 {% block body %}
-	{% set user_entity_name = 'USER' %}
-	{% set add_user_vars = 
+	{% set entity_name = 'USER' %}
+	{% set add_button_vars =
 		{ 
-			'entity': user_entity_name, 
+			'entity': entity_name,
 			'href': path('admin_app_form_new_user') , 
 			'icon': '<i class="bi bi-person-add"></i>', 
 			'text': 'Créer un utilisateur' 
@@ -23,8 +23,8 @@
 		</a>
 
 
-		{% include '/components/admin/button/admin_add_button.html.twig' with add_user_vars %}
+		{% include '/components/admin/button/admin_add_button.html.twig' with add_button_vars %}
 	</div>
 	<h4 class='ps-3 mb-3'>Utilisateur</h4>
-	{% block user_content %}{% endblock %}
+	{% block content %}{% endblock %}
 {% endblock %}
