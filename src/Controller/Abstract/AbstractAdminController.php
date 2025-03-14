@@ -51,6 +51,10 @@ abstract class AbstractAdminController extends AbstractController
         return null;
     }
 
+    /**
+     * @return string|null
+     * @throws \ReflectionException
+     */
     protected function getCurrentRouteName(): ?string
     {
 
