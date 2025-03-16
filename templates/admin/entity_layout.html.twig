@@ -2,26 +2,12 @@
 
 {% block body %}
 
-    {% set add_button_vars = {
-        'entity': entity_name,
-        'href': add_route ? path(add_route) : '#',
-        'icon': add_icon,
-        'text': add_text
-    } %}
-
     <div class='p-3 pe-5 d-flex justify-content-between align-items-start'>
-        {% set css = list_route and app.request.attributes.get('_route') == list_route ? 'btn disabled opacity-0' : '' %}
-        <a href='{{ list_route ? path(list_route) : "#" }}' class='link-secondary link-underline-opacity-0 {{ css }}'>
-            <i class="bi bi-arrow-left me-1"></i>
-            Retourner à la liste
-        </a>
-
-        {% if add_route %}
-            {% include '/components/admin/button/admin_add_button.html.twig' with add_button_vars %}
-        {% endif %}
+        <twig:ReturnToList :list_route_name />
+        <twig:AddButton :icon_class :route_name :text />
     </div>
 
-    <h4 class='ps-3 mb-3'>{{ entity_name|lower|capitalize }}</h4>
+    <h4 class='ps-3 mb-3'>{{ title }}</h4>
 
     {% block content %}{% endblock %}
 {% endblock %}

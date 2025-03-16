@@ -17,15 +17,9 @@ final class CollectionUsersController extends AbstractAdminController
     #[Route('/users', name: 'app_collection_users')]
     public function collection(Request $request, UserRepository $repository): Response
     {
-        $config = new AdminCollectionConfig(
-            'UTILISATEUR',
-            $this->getRouteNameFromControllerMethod(FormUserController::class, 'formView'),
-            '<i class="bi bi-person-add"></i>',
-            'Créer un utilisateur',
-            $this->getCurrentRouteName()
-        );
 
-        return $this->renderAdminEntity($config, 'admin/user/collection.html.twig', [
+
+        return $this->render('admin/user/collection.html.twig', [
             'pagination' => $repository->paginate($request->query->getInt('page', 1))
         ]);
     }
