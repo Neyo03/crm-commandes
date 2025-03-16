@@ -10,26 +10,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 abstract class AbstractAdminController extends AbstractController
 {
-    /**
-     * @param AdminCollectionConfig $adminCollectionConfig
-     * @param string $template
-     * @param array $extraParams
-     * @return Response
-     */
-    protected function renderAdminEntity(AdminCollectionConfig $adminCollectionConfig, string $template, array $extraParams = []): Response
-    {
-        if (!$adminCollectionConfig->getAddRoute() || !$adminCollectionConfig->getListRoute()) {
-            throw new InvalidArgumentException('Les routes add_route et list_route sont obligatoires.');
-        }
 
-        return $this->render($template, array_merge([
-            'entity_name' => $adminCollectionConfig->getEntityName(),
-            'add_route' => $adminCollectionConfig->getAddRoute(),
-            'add_icon' => $adminCollectionConfig->getAddIcon(),
-            'add_text' => $adminCollectionConfig->getAddText(),
-            'list_route' => $adminCollectionConfig->getListRoute(),
-        ], $extraParams));
-    }
 
     /**
      * Récupérer le nom de la route pour une méthode de contrôleur donnée.
