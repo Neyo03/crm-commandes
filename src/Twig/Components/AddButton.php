@@ -7,7 +7,11 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 #[AsTwigComponent]
 final class AddButton
 {
-    public string $text;
-    public string $icon_class;
-    public string $route_name;
+    public function __construct(
+        public ?string $icon_class = null,
+        public ?string $route_name = null,
+        public ?string $text = null,
+        public ?string $permission = null)
+    {
+    }
 }

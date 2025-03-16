@@ -33,8 +33,7 @@ class AdminVoter extends Voter
         }
 
         $permissions = $user->getPermissions();
-        [$section, $action] = explode(':', $attribute);
 
-        return isset($permissions[$section]) && in_array($action, $permissions[$section]);
+        return in_array($attribute, $permissions);
     }
 }

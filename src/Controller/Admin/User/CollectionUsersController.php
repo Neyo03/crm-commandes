@@ -2,7 +2,6 @@
 
 namespace App\Controller\Admin\User;
 
-use App\Config\AdminCollectionConfig;
 use App\Controller\Abstract\AbstractAdminController;
 use App\Repository\UserRepository;
 use App\Security\Enum\PermissionEnum;
@@ -17,9 +16,8 @@ final class CollectionUsersController extends AbstractAdminController
     #[Route('/users', name: 'app_collection_users')]
     public function collection(Request $request, UserRepository $repository): Response
     {
-
-        return $this->render('admin/user/collection.html.twig', [
-            'pagination' => $repository->paginate($request->query->getInt('page', 1))
+        return $this->renderUserTemplate('admin/user/collection.html.twig', [
+            'pagination' => $repository->paginate($request->query->getInt('page', 1)),
         ]);
     }
 }

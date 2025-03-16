@@ -1,7 +1,10 @@
-{% if app.request.attributes.get('_route') == list_route_name  %}
-    
+{% set path = '#' %}
+
+{% if list_route_name %}
+    {% set path = path(list_route_name) %}
 {% endif %}
-<a href='{{ path(list_route_name) }}' class='link-secondary link-underline-opacity-0'>
+
+<a href='{{ path }}' class='{{ css }}'>
     <i class="bi bi-arrow-left me-1"></i>
     Retourner à la liste
 </a>
