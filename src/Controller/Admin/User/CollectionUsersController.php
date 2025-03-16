@@ -18,7 +18,6 @@ final class CollectionUsersController extends AbstractAdminController
     public function collection(Request $request, UserRepository $repository): Response
     {
 
-
         return $this->render('admin/user/collection.html.twig', [
             'pagination' => $repository->paginate($request->query->getInt('page', 1))
         ]);
