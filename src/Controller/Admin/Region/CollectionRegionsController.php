@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-final class CollectionRegionsController extends AbstractAdminController
+final class CollectionRegionsController extends AbstractController
 {
     #[IsGranted(PermissionEnum::REGION_COLLECTION->value)]
     #[Route('/regions', name: 'app_collection_regions')]

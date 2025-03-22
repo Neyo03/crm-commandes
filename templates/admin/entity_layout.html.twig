@@ -3,16 +3,8 @@
 {% block body %}
 
     <div class='p-3 pe-5 d-flex justify-content-between align-items-start'>
-        <twig:ReturnToList
-            list_route_name="{{ returnButton.list_route_name }}"
-            css="{{ returnButton.css }}"
-        />
-        <twig:AddButton
-                icon_class="{{ addButton.icon_class }}"
-                route_name="{{ addButton.route_name }}"
-                text="{{ addButton.text }}"
-                permission="{{ addButton.permission }}"
-        />
+        <twig:returnToList :list_route_name="" />
+        <twig:addButton :icon_class="" :route_name="" :text="" />
     </div>
 
     <h4 class='ps-3 mb-3'>{{ title }}</h4>
