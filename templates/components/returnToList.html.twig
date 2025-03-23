@@ -1,0 +1,10 @@
+{% set path = '#' %}
+
+{% if list_route_name %}
+    {% set path = path(list_route_name) %}
+{% endif %}
+
+<a href='{{ path }}' class='{{ css }}'>
+    <i class="bi bi-arrow-left me-1"></i>
+    Retourner à la liste
+</a>

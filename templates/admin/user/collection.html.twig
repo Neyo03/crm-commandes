@@ -1,6 +1,14 @@
-{% extends 'admin/entity_layout.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block content %}
+{% block body %}
+
+	<twig:NavAdminCollectionButton>
+		<twig:ReturnToList list_route_name="admin_app_collection_users" />
+		<twig:AddButton icon_class="i" route_name="admin_app_form_new_user" text="Ajouter un utilisateur" permission="{{ app.user.userCreateRight }}" />
+	</twig:NavAdminCollectionButton>
+
+	<twig:titleCollection title="Utilisateurs" />
+
 	{{ knp_pagination_rel_links(pagination) }}
 
 	<div class='p-3 pe-5 w-100 position-relative border-top div-border-dark'>
@@ -22,31 +30,15 @@
 					<td>{{ user.id }}</td>
 					<td>{{ user.email }}</td>
 					<td>
-{#						TODO: faire un composant pour le menu#}
-						<div class="dropdown">
-							<a href="#" class="d-flex align-items-center text-white text-decoration-none" id="dropdownUser{{user.id}}" data-bs-toggle="dropdown" aria-expanded="true">
-								<i class="bi bi-three-dots"></i>
-							</a>
-							<ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser{{user.id}}" style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate(0px, -34px);" data-popper-placement="top-start">
-								{% if has_permission(permission_enum('USER_EDIT')) %}
-									<li>
-										<a class="dropdown-item" href="">
-											<i class="bi bi-pencil-square button-icon"></i>
-											Modifier
-										</a>
-									</li>
-								{% endif %}
-
-								{% if has_permission(permission_enum('USER_DELETE')) %}
-									<li>
-										<a class="dropdown-item text-danger" data-controller="delete" data-delete-url-value="" data-delete-csrf-value="{{ csrf_token('delete' ~ user.id) }}" data-action="click->delete#confirm">
-											<i class="bi bi-trash3-fill button-icon"></i>
-											Supprimer
-										</a>
-									</li>
-								{% endif %}
-							</ul>
-						</div>
+{#						{% set menu_vars =#}
+{#								{ #}
+{#									'hrefEdit': path('admin_app_form_edit_user', {'user' : user.id}), #}
+{#									'hrefDelete': path('admin_app_delete_user', {'user' : user.id}), #}
+{#									'entityId': user.id, #}
+{#									'entityName': entity_name#}
+{#								} #}
+{#							%}#}
+{#						{% include '/components/admin/menu/admin_dropdown_menu.html.twig' with menu_vars %}#}
 					</td>
 				</tr>
 			{% endfor %}
