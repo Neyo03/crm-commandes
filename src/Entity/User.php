@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Entity\Trait\PermissionTrait;
+use App\EventListener\EntityDeleteListener;
 use App\Repository\UserRepository;
 use App\Security\Enum\PermissionEnum;
 use App\Security\Enum\RoleEnum;
@@ -17,6 +18,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 #[HasLifecycleCallbacks]
+#[ORM\EntityListeners([EntityDeleteListener::class])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
 
