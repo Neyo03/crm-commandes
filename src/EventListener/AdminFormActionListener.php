@@ -5,16 +5,16 @@ namespace App\EventListener;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Routing\RouterInterface;
 
 /**
  * Class AdminFormActionListener
  */
 #[AsEventListener(event: FormEvents::PRE_SET_DATA, method: 'onPreSetData')]
-class AdminFormActionListener
+readonly class AdminFormActionListener
 {
-    public function __construct(private readonly RouterInterface $router) {}
+    public function __construct(private RouterInterface $router) {}
 
     /**
      * Sets the form action based on the entity data before it is set.
@@ -70,8 +70,6 @@ class AdminFormActionListener
         $formOptions['action'] = $actionUrl;
 
         $parent = $form->getParent();
-        if ($parent) {
-            $parent->add($form->getName(), get_class($config->getType()->getInnerType()), $formOptions);
-        }
+        $parent?->add($form->getName(), get_class($config->getType()->getInnerType()), $formOptions);
     }
 }

@@ -1,10 +1,8 @@
-{% set path = '#' %}
+<twig:Link:NavLink route_name="{{ list_route_name }}" text="Retourner à la liste" classOverride="{{ class }}"
+                   icon_class="bi-arrow-left me-1"/>
 
-{% if list_route_name %}
-    {% set path = path(list_route_name) %}
-{% endif %}
 
-<a href='{{ path }}' class='{{ css }}'>
-    <i class="bi bi-arrow-left me-1"></i>
-    Retourner à la liste
-</a>
+
+
+
+

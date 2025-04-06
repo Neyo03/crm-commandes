@@ -1,0 +1,14 @@
+{% set class = classOverride ?? "nav-link text-white" %}
+
+{% if isActiveLink %}
+    {% set isActive = app.request.attributes.get('_route') == route_name ? "active" : "" %}
+    {% set class = class ~ isActive %}
+{% endif %}
+
+<a href="{{ this.href }}" class="{{ class }}">
+    <i class="bi {{ icon_class }} button-icon"></i>
+    {{ text }}
+</a>
+
+
+

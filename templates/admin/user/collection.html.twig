@@ -39,6 +39,16 @@
 {#								} #}
 {#							%}#}
 {#						{% include '/components/admin/menu/admin_dropdown_menu.html.twig' with menu_vars %}#}
+						<div data-controller="dropdown" class="dropdown">
+							<button data-dropdown-target="button" data-action="dropdown#toggle" class="dropdown-button">
+								Menu
+							</button>
+							<div data-dropdown-target="menu" class="dropdown-menu hidden">
+								<a href="#" class="dropdown-item">Link 1</a>
+								<a href="#" class="dropdown-item">Link 2</a>
+								<a href="#" class="dropdown-item">Link 3</a>
+							</div>
+						</div>
 					</td>
 				</tr>
 			{% endfor %}
