@@ -22,6 +22,7 @@ final class NavLink
         public ?string                $text = null,
         public ?string                $classOverride = null,
         public bool                   $isActiveLink = false,
+        public array                  $parameters = [],
     )
     {
         $this->class = $class;
@@ -30,7 +31,7 @@ final class NavLink
     #[PostMount]
     public function postMount(): void
     {
-        $this->href = $this->route_name ? $this->urlGenerator->generate($this->route_name) : null;
+        $this->href = $this->route_name ? $this->urlGenerator->generate($this->route_name, $this->parameters) : null;
     }
 
     public function getHref(): ?string

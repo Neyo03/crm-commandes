@@ -21,7 +21,11 @@ final class ReturnToList
     public function postMount(): void
     {
         $currentRoute = $this->requestStack->getCurrentRequest()->attributes->get("_route");
-        $this->list_route_name = $this->list_route_name !== $currentRoute ?? null;
+
+        if ($this->list_route_name === $currentRoute) {
+            $this->list_route_name = null;
+        }
+
         $this->class = !$this->list_route_name ? 'btn disabled opacity-0' : "link-secondary link-underline-opacity-0";
         
     }

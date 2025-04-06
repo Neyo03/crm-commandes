@@ -30,25 +30,14 @@
 					<td>{{ user.id }}</td>
 					<td>{{ user.email }}</td>
 					<td>
-{#						{% set menu_vars =#}
-{#								{ #}
-{#									'hrefEdit': path('admin_app_form_edit_user', {'user' : user.id}), #}
-{#									'hrefDelete': path('admin_app_delete_user', {'user' : user.id}), #}
-{#									'entityId': user.id, #}
-{#									'entityName': entity_name#}
-{#								} #}
-{#							%}#}
-{#						{% include '/components/admin/menu/admin_dropdown_menu.html.twig' with menu_vars %}#}
-						<div data-controller="dropdown" class="dropdown">
-							<button data-dropdown-target="button" data-action="dropdown#toggle" class="dropdown-button">
-								Menu
-							</button>
-							<div data-dropdown-target="menu" class="dropdown-menu hidden">
-								<a href="#" class="dropdown-item">Link 1</a>
-								<a href="#" class="dropdown-item">Link 2</a>
-								<a href="#" class="dropdown-item">Link 3</a>
-							</div>
-						</div>
+                        <twig:Dropdown>
+                            <twig:Link:NavLink icon_class="bi-pencil-fill" classOverride="dropdown-item"
+                                               route_name="admin_app_form_edit_user" parameters="{{ {user: user.id} }}"
+                                               text="Modifier"/>
+                            <twig:Link:NavLink icon_class="bi-trash3-fill" classOverride="dropdown-item text-danger"
+                                               route_name="admin_app_delete_user" parameters="{{ {user: user.id} }}"
+                                               text="Supprimer"/>
+                        </twig:Dropdown>
 					</td>
 				</tr>
 			{% endfor %}

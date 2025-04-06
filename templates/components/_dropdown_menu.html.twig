@@ -1,9 +1,10 @@
-<div data-controller="dropdown">
-    <button data-dropdown-target="button" data-action="dropdown#toggle">Menu</button>
-    <div data-dropdown-target="menu" class="hidden">
-        <a href="#">Link 1</a>
-        <a href="#">Link 2</a>
-        <a href="#">Link 3</a>
-    </div>
+<div class="dropdown">
+    <button class="btn text-muted" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+            aria-expanded="false">
+        <i class="bi bi-three-dots"></i>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        {% block content %}{% endblock %}
+    </ul>
 </div>
 
