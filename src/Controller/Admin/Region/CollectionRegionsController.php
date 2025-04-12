@@ -18,15 +18,7 @@ final class CollectionRegionsController extends AbstractController
     #[Route('/regions', name: 'app_collection_regions')]
     public function collection(Request $request, RegionRepository $repository): Response
     {
-        $config = new AdminCollectionConfig(
-            'REGION',
-            $this->getRouteNameFromControllerMethod(FormRegionController::class, 'formView'),
-            '<i class="bi bi-person-add"></i>',
-            'Créer une région',
-            $this->getCurrentRouteName()
-        );
-
-        return $this->renderAdminEntity($config, 'admin/region/collection.html.twig', [
+        return $this->render('admin/region/collection.html.twig', [
             'pagination' => $repository->paginate($request->query->getInt('page', 1))
         ]);
     }

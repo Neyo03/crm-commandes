@@ -18,7 +18,6 @@ final class CollectionUsersController extends AbstractController
     #[Route('/users', name: 'app_collection_users')]
     public function collection(Request $request, UserRepository $repository): Response
     {
-
         return $this->render('admin/user/collection.html.twig', [
             'pagination' => $repository->paginate($request->query->getInt('page', 1))
         ]);

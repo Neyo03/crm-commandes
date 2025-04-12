@@ -38,6 +38,7 @@ class RattachementType extends AbstractType
             ->add('region', EntityType::class, [
                 'class' => Region::class,
                 'label' => 'Région du rattachement',
+                'choice_label' => 'name',
                 'attr' => [
                     'placeholder' => 'Séléctionner une région',
                     'class' => 'form-control',

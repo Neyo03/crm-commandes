@@ -1,6 +1,9 @@
-{% extends '/admin/rattachement/base.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block content %}
+{% block body %}
+
+	{{ include('admin/rattachement/_nav.html.twig') }}
+
 	<nav>
 		<div class="nav nav-pills mb-3 ps-3" id="nav-tab" role="tablist">
 			<button class="nav-link active" id="nav-general-tab" data-bs-toggle="pill" data-bs-target="#nav-general" type="button" role="tab" aria-controls="nav-general" aria-selected="true">Générale</button>

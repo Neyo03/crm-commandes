@@ -18,15 +18,7 @@ final class CollectionRattachementController extends AbstractController
     #[Route('/rattachements', name: 'app_collection_rattachements')]
     public function collection(Request $request, RattachementRepository $repository): Response
     {
-        $config = new AdminCollectionConfig(
-            'RATTACHEMENT',
-            $this->getRouteNameFromControllerMethod(FormRattachementController::class, 'formView'),
-            '<i class="bi bi-person-add"></i>',
-            'Créer un rattachement',
-            $this->getCurrentRouteName()
-        );
-
-        return $this->renderAdminEntity($config, 'admin/rattachement/collection.html.twig', [
+        return $this->render('admin/rattachement/collection.html.twig', [
             'pagination' => $repository->paginate($request->query->getInt('page', 1))
         ]);
     }
