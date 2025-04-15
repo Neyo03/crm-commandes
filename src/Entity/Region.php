@@ -21,7 +21,7 @@ class Region
     /**
      * @var Collection<int, Rattachement>
      */
-    #[ORM\OneToMany(targetEntity: Rattachement::class, mappedBy: 'region')]
+    #[ORM\OneToMany(targetEntity: Rattachement::class, mappedBy: 'region', cascade: ['persist', 'remove'])]
     private Collection $rattachements;
 
     /**

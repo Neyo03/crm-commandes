@@ -1,15 +1,18 @@
-{% extends 'admin/entity_layout.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block content %}
+{% block body %}
+
+    {{ include('admin/user/_nav.html.twig') }}
+
 	{{ knp_pagination_rel_links(pagination) }}
 
 	<div class='p-3 pe-5 w-100 position-relative border-top div-border-dark'>
 		<table class='table table-striped table-dark rounded table-hover'>
 			<tr>
 				{# sorting of properties based on query components #}
-				<th>{{ knp_pagination_sortable(pagination, '#', 'u.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, '#', 'e.id') }}</th>
 				<th {% if pagination.isSorted('u.email') %} class="sorted" {% endif %}>
-					{{ knp_pagination_sortable(pagination, 'Email', 'u.email') }}
+                    {{ knp_pagination_sortable(pagination, 'Email', 'e.email') }}
 				</th>
 				<th>
 					Actions
@@ -22,31 +25,14 @@
 					<td>{{ user.id }}</td>
 					<td>{{ user.email }}</td>
 					<td>
-{#						TODO: faire un composant pour le menu#}
-						<div class="dropdown">
-							<a href="#" class="d-flex align-items-center text-white text-decoration-none" id="dropdownUser{{user.id}}" data-bs-toggle="dropdown" aria-expanded="true">
-								<i class="bi bi-three-dots"></i>
-							</a>
-							<ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser{{user.id}}" style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate(0px, -34px);" data-popper-placement="top-start">
-								{% if has_permission(permission_enum('USER_EDIT')) %}
-									<li>
-										<a class="dropdown-item" href="">
-											<i class="bi bi-pencil-square button-icon"></i>
-											Modifier
-										</a>
-									</li>
-								{% endif %}
-
-								{% if has_permission(permission_enum('USER_DELETE')) %}
-									<li>
-										<a class="dropdown-item text-danger" data-controller="delete" data-delete-url-value="" data-delete-csrf-value="{{ csrf_token('delete' ~ user.id) }}" data-action="click->delete#confirm">
-											<i class="bi bi-trash3-fill button-icon"></i>
-											Supprimer
-										</a>
-									</li>
-								{% endif %}
-							</ul>
-						</div>
+                        <twig:Dropdown>
+                            <twig:Link:NavLink icon_class="bi-pencil-fill" classOverride="dropdown-item"
+                                               route_name="admin_app_form_edit_user" parameters="{{ {user: user.id} }}"
+                                               text="Modifier"/>
+                            <twig:Link:NavLink icon_class="bi-trash3-fill" classOverride="dropdown-item text-danger"
+                                               route_name="admin_app_delete_user" parameters="{{ {user: user.id} }}"
+                                               text="Supprimer"/>
+                        </twig:Dropdown>
 					</td>
 				</tr>
 			{% endfor %}

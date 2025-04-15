@@ -1,6 +1,9 @@
-{% extends 'admin/entity_layout.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block content %}
+{% block body %}
+
+	{{ include('admin/user/_nav.html.twig') }}
+	{#	TODO : Faire un composant twig #}
 	<nav>
 		<div class="nav nav-pills mb-3 ps-3" id="nav-tab" role="tablist">
 			<button class="nav-link active" id="nav-general-tab" data-bs-toggle="pill" data-bs-target="#nav-general" type="button" role="tab" aria-controls="nav-general" aria-selected="true">Générale</button>
@@ -15,7 +18,7 @@
 			{% set link_url = path('admin_app_link_user', { 'user': userId }) %}
 		{% endif %}
 		<div data-controller="login-link" data-login-link-url-value="{{ link_url }}" data-login-link-csrf-value="{{ csrf_token('admin_app_link_user') }}" style='min-height:74vh;' class='div-border-dark p-3 w-50 border-end'>
-			<div class='d-flex justify-content-end align-items-start mb-2'>
+			<div class='d-flex justify-content-end align-items-start mb-2 w-100'>
 				<a href='#' data-action="login-link#confirm" class='rounded-pill border border-muted text-muted d-inline-block px-3 py-1 link-underline link-underline-opacity-0'>
 					<i class="bi bi-arrow-repeat"></i>
 					Lien temporaire
@@ -28,9 +31,7 @@
 					Lien de connexion temporaire
 				</label>
 				<div class="input-group mt-2" data-controller='clipboard'>
-					<label>
-						<input type="text" class="form-control" data-login-link-target="input" value="{{ loginLink }}" data-clipboard-target="source" readonly>
-					</label>
+					<input type="text" class="form-control" data-login-link-target="input" value="{{ loginLink }}" data-clipboard-target="source" readonly>
 					<button type='button' class="btn btn-success input-group-append" data-action="clipboard#copy" data-target="clipboard.source">
 						<i class="bi bi-copy"></i>
 					</button>

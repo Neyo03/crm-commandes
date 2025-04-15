@@ -1,11 +1,9 @@
-{% extends '/admin/region/base.region.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block content %}
-	<nav>
-		<div class="nav nav-pills mb-3 ps-3" id="nav-tab" role="tablist">
-			<button class="nav-link active" id="nav-general-tab" data-bs-toggle="pill" data-bs-target="#nav-general" type="button" role="tab" aria-controls="nav-general" aria-selected="true">Générale</button>
-		</div>
-	</nav>
+{% block body %}
+
+	{{ include('admin/region/_nav.html.twig') }}
+
 	<div class='w-100 position-relative border-top div-border-dark'>
 		{{ form_start(form) }}
 		<div style='min-height:74vh;' class='div-border-dark p-3 w-50 border-end'>
@@ -16,13 +14,27 @@
 							{{ form_row(form.name) }}
 						</div>
 					</div>
-					{{ form_row(form.rattachements) }}
-					{% for rattachement in form.rattachements %}
-						<div class="rattachement-item">
-							{{ form_row(rattachement) }}
-						</div>
-					{% endfor %}
+					{#                    {{ form_row(form.rattachements) }} #}
+					{#                    {% for index, rattachement in form.rattachements %} #}
+					{#                        <div class="rattachement-item"> #}
+					{#                            {{ rattachement }} #}
+					{#                            {{ form_row(rattachement) }} #}
+					{#                        </div> #}
+					{#                    {% endfor %} #}
+					<h5 class="mb-3 mt-3">Rattachements</h5>
+					<div id="rattachement-fields-list"
+						 data-prototype="{{ form_widget(form.rattachements.vars.prototype)|e('html_attr') }}">
+						{% for rattachementForm in form.rattachements %}
+							<div>
+								<label>Libellé du rattachement</label>
+								{{ form_widget(rattachementForm.name) }}
+							</div>
+						{% endfor %}
+					</div>
 
+					<a type="button" id="add-rattachement"
+					   class='mt-3 me-2 rounded-pill border border-primary text-primary d-inline-block px-3 py-1 link-underline link-underline-opacity-0'>Ajouter
+						Rattachement</a>
 					<div style="display:none;">
 					</div>
 				</div>
@@ -32,5 +44,37 @@
 			</div>
 			{{ form_end(form) }}
 		</div>
-	</div>>
+	</div>
+	<script>
+
+		// Get the ul that holds the collection
+		let collectionHolder = document.querySelector('#rattachement-fields-list');
+
+		// define an addTagForm function
+		let addTagForm = (collectionHolder) => {
+			// Get the data-prototype
+			let prototype = collectionHolder.dataset.prototype;
+
+			// get the new index
+			let index = collectionHolder.dataset.index;
+
+			// Replace '__name__' in the prototype's HTML to
+			// instead be a number based on the current collection's length
+			let newForm = prototype.replace(/__name__/g, index);
+
+			// increase the index for the next item
+			collectionHolder.dataset.index++;
+
+			// Add the new form appended in li element
+			let li = document.createElement('div');
+			li.innerHTML = newForm;
+			collectionHolder.append(li);
+		}
+
+		// Add a add button
+		document.querySelector('#add-rattachement').onclick = function () {
+			addTagForm(collectionHolder);
+		}
+
+	</script>
 {% endblock %}

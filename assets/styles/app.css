@@ -270,7 +270,7 @@ label {
     bottom: 20px;
     right: 20px;
     z-index: 1050;
-    width: 12vw;
+    width: 20vw;
 }
 
 .flash-messages .alert {
@@ -307,3 +307,15 @@ label {
     margin: 5px 0;
     border-radius: 5px;
 }
+
+.dropdown-item {
+    color: var(--text-color);
+    background-color: var(--tertiary-bg);
+    border-radius: 5px;
+}
+
+.dropdown-item:hover {
+    color: var(--text-muted);
+    background-color: var(--highlight-bg);
+}
+

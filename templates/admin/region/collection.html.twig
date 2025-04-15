@@ -1,15 +1,21 @@
-{% extends 'admin/entity_layout.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block content %}
+{% block body %}
+
+	{{ include('admin/region/_nav.html.twig') }}
+
 	{{ knp_pagination_rel_links(pagination) }}
 
 	<div class='p-3 pe-5 w-100 position-relative border-top div-border-dark'>
 		<table class='table table-striped table-dark rounded table-hover'>
 			<tr>
 				{# sorting of properties based on query components #}
-				<th>{{ knp_pagination_sortable(pagination, '#', 'r.id') }}</th>
-				<th {% if pagination.isSorted('r.name') %} class="sorted" {% endif %}>
-					{{ knp_pagination_sortable(pagination, 'Nom', 'r.name') }}
+				<th>{{ knp_pagination_sortable(pagination, '#', 'e.id') }}</th>
+				<th {% if pagination.isSorted('e.name') %} class="sorted" {% endif %}>
+					{{ knp_pagination_sortable(pagination, 'Libellé', 'e.name') }}
+				</th>
+				<th>
+					{{ knp_pagination_sortable(pagination, 'Rattachements', 'e.rattachements') }}
 				</th>
 				<th>
 					Actions
@@ -21,16 +27,18 @@
 				<tr {% if loop.index is odd %} class="color" {% endif %}>
 					<td>{{ region.id }}</td>
 					<td>{{ region.name }}</td>
+					<td>{{ region.rattachements|join(',') }}</td>
 					<td>
-						{% set menu_vars =
-								{
-									'hrefEdit': path('admin_app_form_edit_region', {'region' : region.id}),
-									'hrefDelete': path('admin_app_delete_region', {'region' : region.id}),
-									'entityId': region.id,
-									'entityName': entity_name
-								}
-							%}
-						{% include '/components/admin/menu/admin_dropdown_menu.html.twig' with menu_vars %}
+						<twig:Dropdown>
+							<twig:Link:NavLink icon_class="bi-pencil-fill" classOverride="dropdown-item"
+											   route_name="admin_app_form_edit_region"
+											   parameters="{{ {region: region.id} }}"
+											   text="Modifier"/>
+							<twig:Link:NavLink icon_class="bi-trash3-fill" classOverride="dropdown-item text-danger"
+											   route_name="admin_app_delete_region"
+											   parameters="{{ {region: region.id} }}"
+											   text="Supprimer"/>
+						</twig:Dropdown>
 					</td>
 				</tr>
 			{% endfor %}

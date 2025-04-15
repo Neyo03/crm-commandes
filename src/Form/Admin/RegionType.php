@@ -37,6 +37,7 @@ class RegionType extends AbstractType
             ->add('rattachements', CollectionType::class, [
                 'entry_type' => RattachementType::class,
                 'label' => 'Rattachements',
+                "keep_as_list" => true,
                 'allow_add' => true,
                 'prototype' => true,
                 'attr' => [
