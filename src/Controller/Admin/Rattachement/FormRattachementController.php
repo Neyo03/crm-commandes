@@ -17,7 +17,7 @@ final class FormRattachementController extends AbstractController
     #[Route('/form/rattachement/{rattachement}/edit', name: 'app_form_edit_rattachement', methods: ['GET'])]
     public function formView(?Rattachement $rattachement = null): Response
     {
-        $form = $this->createForm(RattachementType::class, $rattachement);
+        $form = $this->createForm(RattachementType::class, $rattachement, ['standalone' => true]);
 
         return $this->render('admin/rattachement/form.html.twig', [
             'form' => $form->createView(),

@@ -270,7 +270,7 @@ label {
     bottom: 20px;
     right: 20px;
     z-index: 1050;
-    width: 12vw;
+    width: 20vw;
 }
 
 .flash-messages .alert {

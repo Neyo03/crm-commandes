@@ -15,6 +15,9 @@
 					{{ knp_pagination_sortable(pagination, 'Libellé', 'e.name') }}
 				</th>
 				<th>
+					{{ knp_pagination_sortable(pagination, 'Rattachements', 'e.rattachements') }}
+				</th>
+				<th>
 					Actions
 				</th>
 			</tr>
@@ -24,6 +27,7 @@
 				<tr {% if loop.index is odd %} class="color" {% endif %}>
 					<td>{{ region.id }}</td>
 					<td>{{ region.name }}</td>
+					<td>{{ region.rattachements|join(',') }}</td>
 					<td>
 						<twig:Dropdown>
 							<twig:Link:NavLink icon_class="bi-pencil-fill" classOverride="dropdown-item"

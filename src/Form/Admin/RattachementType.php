@@ -31,11 +31,14 @@ class RattachementType extends AbstractType
                 'label' => 'Libellé',
                 'attr' => [
                     'placeholder' => 'Libellé',
-                    'class' => 'form-control',
+                    'class' => 'form-control mt-1',
                     'disabled' => $isDisabled,
                 ],
             ])
-            ->add('region', EntityType::class, [
+        ;
+
+        if ($options['standalone']) {
+            $builder ->add('region', EntityType::class, [
                 'class' => Region::class,
                 'label' => 'Région du rattachement',
                 'choice_label' => 'name',
@@ -44,14 +47,15 @@ class RattachementType extends AbstractType
                     'class' => 'form-control',
                     'disabled' => $isDisabled,
                 ],
-            ])
-        ;
+            ]);
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Rattachement::class
+            'data_class' => Rattachement::class,
+            'standalone' => false
         ]);
     }
 }
