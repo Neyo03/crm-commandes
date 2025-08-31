@@ -12,21 +12,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-final class CollectionRegionsController extends AbstractAdminController
+final class CollectionRegionsController extends AbstractController
 {
     #[IsGranted(PermissionEnum::REGION_COLLECTION->value)]
     #[Route('/regions', name: 'app_collection_regions')]
     public function collection(Request $request, RegionRepository $repository): Response
     {
-        $config = new AdminCollectionConfig(
-            'REGION',
-            $this->getRouteNameFromControllerMethod(FormRegionController::class, 'formView'),
-            '<i class="bi bi-person-add"></i>',
-            'Créer une région',
-            $this->getCurrentRouteName()
-        );
-
-        return $this->renderAdminEntity($config, 'admin/region/collection.html.twig', [
+        return $this->render('admin/region/collection.html.twig', [
             'pagination' => $repository->paginate($request->query->getInt('page', 1))
         ]);
     }

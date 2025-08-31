@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Trait\PermissionTrait;
 use App\Repository\UserRepository;
 use App\Security\Enum\PermissionEnum;
 use App\Security\Enum\RoleEnum;
@@ -18,6 +19,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[HasLifecycleCallbacks]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+
+    use PermissionTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

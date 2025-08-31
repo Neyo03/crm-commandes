@@ -13,19 +13,9 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 final class DeleteUserController extends AbstractController
 {
     #[IsGranted(PermissionEnum::USER_DELETE->value)]
-    #[Route('/user/{user}/delete', name: 'app_delete_user', methods: ['DELETE'])]
-    public function delete(
-        User $user,
-        EntityManagerInterface $entityManager,
-    ): Response {
-
-        try {
-            $entityManager->remove($user);
-            $entityManager->flush();
-        } catch (\Throwable $th) {
-            $this->addFlash('error', 'Une erreur est survenue.');
-        }
-
-        return $this->redirectToRoute('admin_app_collection_users');
+    #[Route('/user/{user}/delete', name: 'app_delete_user', methods: ['GET'])]
+    public function delete(): Response
+    {
+        return new Response('');
     }
 }

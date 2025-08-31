@@ -14,6 +14,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserType extends AbstractType
@@ -70,22 +72,68 @@ class UserType extends AbstractType
                 'required' => false,
                 'label' => 'Régions',
                 'attr' => [
-                    'class' => 'select-tools',
+                    'class' => 'form-input',
                 ],
                 'disabled' => $isDisabled,
             ])
-            ->add('rattachements', EntityType::class, [
+        ;
+
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use($isDisabled) {
+            $form = $event->getForm();
+            $user = $event->getData();
+
+            $regions = $user->getRegions();
+
+            $rattachements = [];
+
+
+            foreach($regions as $region) {
+                $rattachements = array_merge($rattachements, $region->getRattachements()->toArray());
+            }
+
+            $form->add('rattachements', EntityType::class, [
                 'class' => Rattachement::class,
+                'choices' => $rattachements,
                 'choice_label' => 'name',
                 'choice_value' => 'id',
                 'multiple' => true,
                 'required' => false,
                 'label' => 'Rattachements',
                 'attr' => [
-                    'class' => 'select-tools',
+                    'class' => 'form-input',
                 ],
                 'disabled' => $isDisabled,
             ]);
+
+        });
+
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) use($isDisabled) {
+            $form = $event->getForm();
+            $data = $event->getData();
+            $regionsData = $data['regions'] ?? null;
+
+            if ($regionsData) {
+                $regions = $this->em->getRepository(Region::class)->findBy(['id' => $regionsData]);
+                $rattachements = [];
+                foreach($regions as $region) {
+                    $rattachements = array_merge($rattachements, $region->getRattachements()->toArray());
+                }
+
+                $form->add('rattachements', EntityType::class, [
+                    'class' => Rattachement::class,
+                    'choices' => $rattachements,
+                    'choice_label' => 'name',
+                    'choice_value' => 'id',
+                    'multiple' => true,
+                    'required' => false,
+                    'label' => 'Rattachements',
+                    'attr' => [
+                        'class' => 'form-input',
+                    ],
+                    'disabled' => $isDisabled,
+                ]);
+            }
+        });
     }
 
     public function configureOptions(OptionsResolver $resolver): void

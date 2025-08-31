@@ -12,54 +12,43 @@
 		</div>
 		<ul class="nav nav-pills flex-column mb-auto">
 			<li class="nav-item">
-				<a href="#" class="nav-link text-white">
-					<i class="bi bi-archive-fill button-icon"></i>
-					Commandes
-				</a>
+				<twig:Link:NavLink isActiveLink="{{ true }}" text="Commandes" route_name=""
+								   icon_class="bi-archive-fill "/>
 			</li>
 
 			<li>
-				<a href="#" class="nav-link text-white">
-					<i class="bi bi-person-fill-slash button-icon"></i>
-					Comptes bloqués
-				</a>
+				<twig:Link:NavLink isActiveLink="{{ true }}" text="Comptes bloqués" route_name=""
+								   icon_class="bi-person-fill-slash "/>
 			</li>
 
 			<li>
-				<a href="#" class="nav-link text-white">
-					<i class="bi bi-geo-alt-fill button-icon"></i>
-					Destinataires
-				</a>
+				<twig:Link:NavLink isActiveLink="{{ true }}" text="Destinataires" route_name=""
+								   icon_class="bi-geo-alt-fill "/>
 			</li>
+
 			<li>
-				<a href="#" class="nav-link text-white">
-					<i class="bi bi-chat-left-dots-fill button-icon"></i>
-					Messages
-				</a>
+				<twig:Link:NavLink isActiveLink="{{ true }}" text="Messages" route_name=""
+								   icon_class="bi-chat-left-dots-fill "/>
 			</li>
+
 			<li>
-				<a href="#" class="nav-link text-white">
-					<i class="bi bi-bell-fill button-icon"></i>
-					Notifications
-				</a>
+				<twig:Link:NavLink isActiveLink="{{ true }}" text="Notifications" route_name=""
+								   icon_class="bi-bell-fill "/>
 			</li>
+
 			<li>
-				<a href="#" class="nav-link text-white">
-					<i class="bi bi-diagram-3-fill button-icon"></i>
-					Rattachements
-				</a>
+				<twig:Link:NavLink isActiveLink="{{ true }}" text="Rattachements"
+								   route_name="admin_app_collection_rattachements" icon_class="bi-diagram-3-fill "/>
 			</li>
+
 			<li>
-				<a href="{{path('admin_app_collection_regions')}}" class="nav-link text-white {% if app.request.attributes.get('_route') == 'admin_app_collection_regions' %}active{% endif %}">
-					<i class="bi bi-diagram-2-fill button-icon"></i>
-					Régions
-				</a>
+				<twig:Link:NavLink isActiveLink="{{ true }}" text="Régions" route_name="admin_app_collection_regions"
+								   icon_class="bi-diagram-2-fill "/>
 			</li>
+
 			<li>
-				<a href="{{path('admin_app_collection_users')}}" class="nav-link text-white {% if app.request.attributes.get('_route') == 'admin_app_collection_users' %}active{% endif %}">
-					<i class="bi bi-people-fill button-icon"></i>
-					Utilisateurs
-				</a>
+				<twig:Link:NavLink isActiveLink="{{ true }}" text="Utilisateurs" route_name="admin_app_collection_users"
+								   icon_class="bi-people-fill"/>
 			</li>
 		</ul>
 	{% else %}
